@@ -12,57 +12,55 @@ NODE_BIN=node_modules/.bin/
 all: help
 
 dev: lint
-	@echo 'babelify package and watch for changes'
+	@echo "babelify package and watch for changes"
 	@${NODE_BIN}babel \
 		src/index.js \
 		--watch \
-		--out-file index.js \
-		--experimental
+		--out-file index.js
 
 build: lint
-	@echo 'babelify package'
+	@echo "babelify package"
 	@${NODE_BIN}babel \
 		src/index.js \
-		--out-file index.js \
-	@echo 'build done'
+		--out-file index.js
+	@echo "build done"
 
 test: build
-	@echo 'test start'
-	@echo 'remove and readd test directory'
+	@echo "test start"
+	@echo "remove and readd test directory"
 	@rm -rf test/*
 	@mkdir test/ -p
 
-	@echo 'building test source'
+	@echo "building test source"
 	@${NODE_BIN}babel \
 		src/test/ \
-		--out-dir test/ \
-		--experimental
+		--out-dir test/
 	${NODE_BIN}mocha \
 		./test/index.js \
 		--reporter spec \
 		--ui bdd
-	@echo 'test done'
+	@echo "test done"
 
 lint:
-	@echo 'eslint start'
+	@echo "eslint start"
 	@${NODE_BIN}eslint \
 		./src/
-	@echo 'eslint done'
+	@echo "eslint done"
 
 lint-fix:
-	@echo 'lint-fix start'
+	@echo "lint-fix start"
 	@${NODE_BIN}eslint \
 		--fix \
 		./src/
-	@echo 'lint-fix end'
+	@echo "lint-fix end"
 
 clean:
-	@echo 'clean start'
+	@echo "clean start"
 	rm -rf \
 		./index.js \
 		./index.js.map \
 		./test
-	@echo 'clean end'
+	@echo "clean end"
 
 help:
 	@echo " \n\
